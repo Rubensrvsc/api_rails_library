@@ -1,5 +1,4 @@
 class BookController < ApplicationController
-  skip_before_action :authenticate_request, only: %i[index create update destroy]
 
   def index
     render json: Book.all.select(:name_book, :pages)
