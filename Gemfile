@@ -7,7 +7,6 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 
 # Use mysql as the database for Active Record
-gem "mysql2", "~> 0.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -47,6 +46,7 @@ gem "rack-cors"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "mysql2", "~> 0.5"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'dotenv-rails'
   gem 'capybara'
@@ -62,5 +62,8 @@ end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+end
+group :production do
+  gem "pg"
 end
 
