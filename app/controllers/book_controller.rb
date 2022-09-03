@@ -5,7 +5,12 @@ class BookController < ApplicationController
   end
   
   def create
-    Workers::CreateBookWorker.perform_async(params[:name_book], params[:pages])
+    if Rails.env.development?
+      Workers::CreateBookWorker.perform_async(params[:name_book], params[:pages])
+    elsif Rails.env.production?
+      Business::CreateBook.new.call(name_book: params[:name_book], pages: params[:pages])
+    end
+    
     render json: { status: 'User created' }
   end
 
