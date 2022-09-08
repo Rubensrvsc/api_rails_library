@@ -1,4 +1,5 @@
 class BookController < ApplicationController
+  skip_before_action :authenticate_request, only: %i[find_book]
 
   def index
     render json: Book.all.select(:name_book, :pages)
@@ -22,6 +23,16 @@ class BookController < ApplicationController
   def destroy
     Business::DeleteBook.new.call(id_book: params[:id])
     render json: { status: 'Book deleted' }
+  end
+
+  def find_book
+    book = Business::Domain.new.find_by_id(id_book: params[:id_book])
+    
+    if book.present?
+      render json: { book: book, status: :ok }
+    else
+      render json: { status: 'Not find book' }
+    end
   end
 
   private
