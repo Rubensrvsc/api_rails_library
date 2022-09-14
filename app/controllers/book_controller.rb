@@ -1,5 +1,6 @@
 class BookController < ApplicationController
   skip_before_action :authenticate_request, only: %i[find_book]
+  load_and_authorize_resource
 
   def index
     render json: Book.all.select(:name_book, :pages)
