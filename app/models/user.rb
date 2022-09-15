@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     require 'securerandom'
-
+    belongs_to :role
     has_secure_password
 
     validates :email, presence: true
