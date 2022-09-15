@@ -4,6 +4,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage, :all if user.present?
+    can :manage, :all if user.role.type_role == 'admin'
   end
 end
