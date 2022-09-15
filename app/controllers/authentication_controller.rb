@@ -15,7 +15,10 @@ class AuthenticationController < ApplicationController
   end
 
   def sign_up
-    user = User.create!(set_params_user)
+    user = User.new(set_params_user)
+    role_user = Role.find_by(type_role: 'client')
+    user.role = role_user
+    user.save
     render json: {
       token: jwt_encode({ id: user.id }),
       user: 'User created'
