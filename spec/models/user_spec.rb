@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
+    @role = create(:role)
     @user = User.create!(
         name: Faker::Name.name,
         username: Faker::Name.name,
         email: Faker::Internet.email,
-        password: 'wxcvbn'
+        password: 'wxcvbn',
+        role_id: @role.id
       )
     end
 

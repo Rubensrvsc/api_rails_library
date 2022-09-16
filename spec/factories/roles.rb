@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :role do
-    type { "client" }
+    type_role { "admin" }
   end
 end
