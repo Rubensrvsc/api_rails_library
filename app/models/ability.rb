@@ -4,6 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage, :all if user.role.type_role == 'admin'
+    return can [:read, :create, :update, :destroy], Book if user.role.type_role == 'admin'
+    return can :read, Book if user.role.type_role == 'client'
   end
 end
