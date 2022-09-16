@@ -7,7 +7,7 @@ class BookController < ApplicationController
   end
   
   def create
-    if Rails.env.development?
+    if Rails.env.development? || Rails.env.test?
       Workers::CreateBookWorker.perform_async(params[:name_book], params[:pages])
     elsif Rails.env.production?
       Business::CreateBook.new.call(name_book: params[:name_book], pages: params[:pages])
