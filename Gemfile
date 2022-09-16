@@ -50,15 +50,16 @@ group :development, :test do
   gem "mysql2", "~> 0.5"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'dotenv-rails'
-  gem 'capybara'
-  gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'pry'
-  gem 'rspec-rails', '~> 3.5'
 end
 
 group :test do
-  gem 'rspec-sidekiq' 
+  gem 'sqlite3'
+  gem 'rspec-sidekiq'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rspec-rails', '~> 3.5'
 end
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
