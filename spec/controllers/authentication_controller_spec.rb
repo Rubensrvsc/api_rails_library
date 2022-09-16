@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AuthenticationController, type: :controller do
   context 'register' do
+    let!(:role) { Role.create(type_role: 'client') }
     let(:user) do
       {
         name: Faker::Name.name,
@@ -10,7 +11,7 @@ RSpec.describe AuthenticationController, type: :controller do
         password: 'wxcvbn'
       }
     end
-    it 'sign_up user' do
+    it 'confer user count' do
       post :sign_up, params: user
       expect(User.count).to eq(1)
     end
@@ -24,12 +25,14 @@ RSpec.describe AuthenticationController, type: :controller do
   end
 
   context 'login' do
+    let(:role) { create(:role) }
     let(:user) do
       User.create!(
         name: Faker::Name.name,
         username: Faker::Name.name,
         email: Faker::Internet.email,
-        password: 'wxcvbn'
+        password: 'wxcvbn',
+        role_id: role.id
       )
     end
 
