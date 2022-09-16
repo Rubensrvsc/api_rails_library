@@ -6,11 +6,13 @@ Sidekiq::Testing.fake!
 
 RSpec.describe BookController, type: :controller do
   before(:each) do
+    @role = create(:role)
     @user = User.create!(
         name: Faker::Name.name,
         username: Faker::Name.name,
         email: Faker::Internet.email,
-        password: 'wxcvbn'
+        password: 'wxcvbn',
+        role_id: @role.id
       )
     @book = create(:book)
     @token = JWT.encode({ id: @user.id }, Rails.application.secret_key_base)
