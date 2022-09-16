@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/db/*.sqlite3
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
