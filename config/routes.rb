@@ -1,3 +1,4 @@
+require 'sidekiq'
 require 'sidekiq/web'
 
 Sidekiq::Web.use ActionDispatch::Cookies
@@ -16,7 +17,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  scope :monitoring do
+    # Sidekiq Basic Auth from routes on production environment
+    Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+      [username, password] == [ENV["SIDEKIQ_AUTH_USERNAME"], ENV["SIDEKIQ_AUTH_PASSWORD"]]
+    end if Rails.env.development?
 
-  mount Sidekiq::Web, at: '/sidekiq'
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
+  
   
 end
